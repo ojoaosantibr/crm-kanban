@@ -76,6 +76,9 @@ export default function AdminDashboardClient({ initialUsers, initialLeads }: any
                 <div>
                   <h4>{user.name}</h4>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{user.email} • Ofensiva: 🔥 {user.current_streak} dias</p>
+                  <a href={`/admin/users/${user.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.8rem', color: 'var(--primary)', marginTop: '0.5rem', textDecoration: 'none' }}>
+                    <LinkIcon size={14} /> Ver Progresso
+                  </a>
                 </div>
               </div>
 
