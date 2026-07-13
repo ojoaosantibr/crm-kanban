@@ -14,10 +14,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="app-container">
       <aside className="sidebar">
-        <div style={{ padding: '2rem 1.5rem', borderBottom: '1px solid var(--border-color)' }}>
-          <h2 style={{ fontSize: '1.5rem', background: 'linear-gradient(to right, var(--primary), var(--secondary))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Admin Panel
-          </h2>
+        <div style={{ padding: '2rem 1.5rem', borderBottom: '1px solid var(--border-color)', textAlign: 'center' }}>
+          <img src="/logo.png" alt="Easy Web Admin" style={{ maxWidth: '160px', margin: '0 auto' }} />
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '1rem' }}>
+            Painel Administrativo
+          </p>
         </div>
 
         <nav style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

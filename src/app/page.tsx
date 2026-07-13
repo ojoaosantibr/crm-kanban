@@ -34,9 +34,7 @@ export default function LoginPage() {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100%' }}>
       <div className="glass" style={{ padding: '2.5rem', width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <div style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', background: 'linear-gradient(to right, var(--primary), var(--secondary))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            CRM Kanban
-          </h1>
+          <img src="/logo.png" alt="Easy Web CRM" style={{ maxWidth: '220px', margin: '0 auto 1.5rem auto', display: 'block' }} />
           <p style={{ color: 'var(--text-muted)' }}>Faça login para continuar</p>
         </div>
 
