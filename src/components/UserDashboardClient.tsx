@@ -17,23 +17,29 @@ export default function UserDashboardClient({ initialUser, initialLeads, initial
     if (isLogging) return;
     setIsLogging(true);
     
-    // Optimistic UI update
-    const isCall = type === 'CALL';
-    const newProgress = {
-      ...progress,
-      calls_count: progress.calls_count + (isCall ? 1 : 0),
-      ig_messages_count: progress.ig_messages_count + (!isCall ? 1 : 0),
-    };
-    
-    // Check goal met locally for immediate animation
-    if (!newProgress.goal_met && newProgress.calls_count >= 10 && newProgress.ig_messages_count >= 10) {
-      newProgress.goal_met = true;
-      setUser({...user, current_streak: user.current_streak + 1});
-    }
-    setProgress(newProgress);
+    try {
+      // Optimistic UI update
+      const isCall = type === 'CALL';
+      const newProgress = {
+        ...progress,
+        calls_count: Number(progress.calls_count || 0) + (isCall ? 1 : 0),
+        ig_messages_count: Number(progress.ig_messages_count || 0) + (!isCall ? 1 : 0),
+      };
+      
+      // Check goal met locally for immediate animation
+      if (!newProgress.goal_met && newProgress.calls_count >= 10 && newProgress.ig_messages_count >= 10) {
+        newProgress.goal_met = true;
+        setUser({...user, current_streak: Number(user.current_streak || 0) + 1});
+      }
+      setProgress(newProgress);
 
-    await logActivity(type);
-    setIsLogging(false);
+      await logActivity(type);
+    } catch (e) {
+      console.error(e);
+      // Aqui poderíamos reverter o estado otimista, mas no MVP apenas logamos
+    } finally {
+      setIsLogging(false);
+    }
   };
 
   const handleDragStart = (e: React.DragEvent, leadId: number) => {

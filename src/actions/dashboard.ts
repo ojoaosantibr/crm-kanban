@@ -44,6 +44,12 @@ export async function logActivity(type: 'CALL' | 'IG_MESSAGE') {
   const userId = session.user.id;
   const today = new Date().toISOString().split('T')[0];
 
+  // Garantir que o progresso de hoje exista
+  let progress = await db.sql`SELECT * FROM daily_progress WHERE user_id = ${userId} AND target_date = ${today}`;
+  if (progress.length === 0) {
+    await db.sql`INSERT INTO daily_progress (user_id, target_date) VALUES (${userId}, ${today})`;
+  }
+
   // Inserir registro de atividade
   await db.sql`INSERT INTO activities (user_id, activity_type) VALUES (${userId}, ${type})`;
 
@@ -55,7 +61,7 @@ export async function logActivity(type: 'CALL' | 'IG_MESSAGE') {
   }
 
   // Checar se a meta foi batida
-  const progress = await db.sql`SELECT * FROM daily_progress WHERE user_id = ${userId} AND target_date = ${today}`;
+  progress = await db.sql`SELECT * FROM daily_progress WHERE user_id = ${userId} AND target_date = ${today}`;
   const p = progress[0];
 
   if (!p.goal_met && p.calls_count >= 10 && p.ig_messages_count >= 10) {
